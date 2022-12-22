@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>ChatGPT新一代人工智能</title>
+      <link href="/post/11.html"/>
+      <url>/post/11.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="chatgpt新一代人工智能">ChatGPT新一代人工智能</h1><h2 id="介绍chatgpt">介绍ChatGPT</h2><blockquote><p>ChatGPT是由OpenAI开发的一种大型语言模型，它能够通过对语言的自然处理来回答问题、产生文本和执行其他的任务。</p><p>ChatGPT是基于GPT-3（Generative Pre-training Transformer3）模型构建的，GPT-3是目前为止最大的自然语言处理模型。它使用了大量的训练数据和多层的神经网络架构，能够对自然语言进行高精度的处理。</p><p>ChatGPT可以进行自然语言对话，回答用户的问题，并能够产生自然语言文本。它可以用于各种应用场景，比如聊天机器人、客服系统、自然语言处理等。</p><p>在使用ChatGPT时，用户可以通过简单的API调用来使用它的功能。用户可以输入一个自然语言的问题或话语，ChatGPT会返回一个自然语言的答案或文本。用户还可以通过设置参数来调整ChatGPT的行为。</p><p>总的来说，ChatGPT是一种非常强大的自然语言处理工具，能够为用户提供高质量的自然语言对话和文本产生服务。它在当前的互联网行业中有广泛的应用前景，是一种值得关注的技术。</p></blockquote><h2 id="chatgpt的功能">ChatGPT的功能</h2><blockquote><ol type="1"><li>文本生成：可以根据输入的上下文和提示信息，生成自然语言文本。</li><li>自动回复：可以根据输入的文本，生成相应的回复内容。</li><li>信息摘要：可以根据输入的文本，生成相应的摘要信息。</li><li>对话生成：可以根据输入的对话上下文，生成相应的对话内容。</li></ol><p>ChatGPT是一种基于Transformer架构的语言模型，具有很高的自然语言理解能力。它可以在文本生成、自动回复、信息摘要和对话生成等应用中发挥作用。</p></blockquote><h2 id="chatgpt编写代码">ChatGPT编写代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">from transformers import ChatGPT2Tokenizer, ChatGPT2Model</span><br><span class="line"></span><br><span class="line"># 初始化模型和分词器</span><br><span class="line">model = ChatGPT2Model.from_pretrained(&#x27;chatgpt2&#x27;)</span><br><span class="line">tokenizer = ChatGPT2Tokenizer.from_pretrained(&#x27;chatgpt2&#x27;)</span><br><span class="line"></span><br><span class="line"># 设置设备</span><br><span class="line">device = torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)</span><br><span class="line">model.to(device)</span><br><span class="line"></span><br><span class="line"># 准备输入</span><br><span class="line">prompt = &quot;The weather is nice today. Do you want to go for a walk?&quot;</span><br><span class="line">input_ids = torch.tensor(tokenizer.encode(prompt)).unsqueeze(0).to(device)</span><br><span class="line"></span><br><span class="line"># 生成文本</span><br><span class="line">with torch.no_grad():</span><br><span class="line">    output = model.generate(input_ids)</span><br><span class="line"></span><br><span class="line"># 将输出转换为人类可读的文本</span><br><span class="line">generated_text = tokenizer.decode(output[0], skip_special_tokens=True)</span><br><span class="line"></span><br><span class="line">print(generated_text)</span><br></pre></td></tr></table></figure><p>上面的代码使用了ChatGPT2模型和ChatGPT2分词器，并将模型加载到了GPU上。然后，通过输入一段文本提示，调用模型的生成</p><p><strong>看到这聪明的你应该已经发现了，这篇文章就是由chatAI自己生成的。</strong></p><p><strong>下面是生成这篇文章的过程</strong></p><p><imgsrc="https://img-blog.csdnimg.cn/bb769ea5be1a42d5bf149bf531fa0e87.png" /></p><p><imgsrc="https://img-blog.csdnimg.cn/6870877e3ad84a0a8b12eff74c19cc62.png" /></p><p><imgsrc="https://img-blog.csdnimg.cn/e2ffd8050f2b4b6496b6afe56b6ae5d4.png" /></p><p>​怎么样，感受到人工智能的神奇了吗？其实这还只是冰山一角，它能根据你给的描述说出来你想要的任何东西，不同于手机的小爱、Siri，它更加智能，也不同于浏览器的搜索功能，它有自己的思考，而且给出的都是有用的。如果你有什么需求，比如要写一篇文章，作业或者写让它帮你写代码，做任务计划等等这些东西，都可以和它进行描述，而当我对回复的结果不满意时，可以进行更精准的描述来引导AI。比如加上条件，多少字以内等等</p><pre><code>还有他的代码功能绝对是最厉害的部分，比如实现水仙花数功能</code></pre><p><imgsrc="https://img-blog.csdnimg.cn/41c6b04c0c3c4804a52b7b593e775db1.png" /></p><p>​总之人工智能的发展是非常迅速的，人工智能的确也取代了人类的好多事情，一步步改变着人类世界，但它仍然有自身的局限性。比如只能复读整合观点，没法提出新的见解；只能实现已有需求，没法实现未曾实现过的需求。</p><p>ChatGPT官网： <ahref="https://openai.com/blog/chatgpt/">https://openai.com/blog/chatgpt/</a>但是这个是国外的网站，进去注册的时候会发现国内的账号是禁止使用的，这时候可能就需要大家搭梯子去访问了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 人工智能 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ChatGPT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Coding pages 不见了？国内各大项目开发管理平台测评</title>
       <link href="/post/10.html"/>
       <url>/post/10.html</url>

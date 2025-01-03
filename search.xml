@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>SCAFFOLD-联邦学习的随机控制平均</title>
+      <link href="/post/18.html"/>
+      <url>/post/18.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="SCAFFOLD-Stochastic-Controlled-Averaging-for-Federated-Learning"><a href="#SCAFFOLD-Stochastic-Controlled-Averaging-for-Federated-Learning" class="headerlink" title="SCAFFOLD: Stochastic Controlled Averaging for Federated Learning"></a>SCAFFOLD: Stochastic Controlled Averaging for Federated Learning</h1><p><img src="https://cdn.nlark.com/yuque/0/2025/png/35305054/1735898198203-31be2293-1322-40f2-a876-46aa81de3b9a.png?x-oss-process=image%2Fformat%2Cwebp%2Fresize%2Cw_750%2Climit_0" alt="image.png"></p><p><img src="https://cdn.nlark.com/yuque/0/2025/png/35305054/1735898256857-006be504-adab-4e27-bcf7-8584df18dc8c.png" alt="img"></p><p><img src="https://cdn.nlark.com/yuque/0/2025/png/35305054/1735898303723-42a2410a-fead-4223-8dc5-fabc00292574.png?x-oss-process=image%2Fformat%2Cwebp%2Fresize%2Cw_750%2Climit_0" alt="image.png"></p><p><img src="https://cdn.nlark.com/yuque/0/2025/png/35305054/1735898317346-c6717275-b9d6-4326-a632-0e381366e29f.png?x-oss-process=image%2Fformat%2Cwebp%2Fresize%2Cw_750%2Climit_0" alt="image.png"></p><p><img src="https://cdn.nlark.com/yuque/0/2025/png/35305054/1735898346708-38400d48-577a-4773-b4b0-03b3ef41f9c3.png?x-oss-process=image%2Fformat%2Cwebp%2Fresize%2Cw_750%2Climit_0" alt="image.png"></p><p><img src="https://cdn.nlark.com/yuque/0/2025/png/35305054/1735898355329-61d1568b-7305-4db0-8619-bd2d43dffd8e.png?x-oss-process=image%2Fformat%2Cwebp" alt="image.png"></p><p><img src="https://cdn.nlark.com/yuque/0/2025/png/35305054/1735898365379-7b7ee166-1e4e-4cc8-a4c6-7db530bdaf01.png?x-oss-process=image%2Fformat%2Cwebp" alt="image.png"></p><p>参考文章：<a href="https://blog.csdn.net/Cyril_KI/article/details/123108780?spm=1001.2014.3001.5506">ICML 2020 | SCAFFOLD：联邦学习的随机控制平均_scaffold论文-CSDN博客</a></p><p><a href="https://blog.csdn.net/weixin_70757494/article/details/139582178">详解SCAFFOLD：解决联邦学习中的客户端漂移问题 Scaffold: Stochastic controlled averaging for federated learning-CSDN博客</a></p><p>论文地址：<a href="https://proceedings.mlr.press/v119/karimireddy20a.html">SCAFFOLD: Stochastic Controlled Averaging for Federated Learning</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 联邦学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>个人博客重启篇-联邦学习基础知识</title>
       <link href="/post/17.html"/>
       <url>/post/17.html</url>

@@ -1,0 +1,723 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>基于局部-全局融合进行多模态联邦学习 | 流火七月</title><meta name="keywords" content="多模态"><meta name="author" content="流火七月"><meta name="copyright" content="流火七月"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="题目：基于局部-全局融合进行多模态联邦学习 作者： Zilin Xia∗,1, Min Tan∗,1, Zhigang Gao+,2, Lingqiang Chu1, Tingting Han1 单位： 杭州电子科技大学计算机科学与技术学院（4人）与中国计量大学信息工程学院（1人）合作完成。 会议： 2024 IEEE International Conference on Syste">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于局部-全局融合进行多模态联邦学习">
+<meta property="og:url" content="http://example.com/post/20.html">
+<meta property="og:site_name" content="流火七月">
+<meta property="og:description" content="题目：基于局部-全局融合进行多模态联邦学习 作者： Zilin Xia∗,1, Min Tan∗,1, Zhigang Gao+,2, Lingqiang Chu1, Tingting Han1 单位： 杭州电子科技大学计算机科学与技术学院（4人）与中国计量大学信息工程学院（1人）合作完成。 会议： 2024 IEEE International Conference on Syste">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.vika.cn/space/2025/03/12/6e475a8f2e0a4f9da500092c14830986">
+<meta property="article:published_time" content="2025-03-12T10:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-12T12:53:26.167Z">
+<meta property="article:author" content="流火七月">
+<meta property="article:tag" content="多模态">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.vika.cn/space/2025/03/12/6e475a8f2e0a4f9da500092c14830986"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/20"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a75c897426831b103f6cff9cc395a748";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于局部-全局融合进行多模态联邦学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-03-12 20:53:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/css/main.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/discover/"><i class="fa-fw fas fa-anchor"></i><span> 发现</span></a></div><div class="menus_item"><a class="site-page" href="/box/"><i class="fa-fw fas fa-box"></i><span> 导航栏</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">流火七月</a><div id="he-plugin-simple"></div></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/discover/"><i class="fa-fw fas fa-anchor"></i><span> 发现</span></a></div><div class="menus_item"><a class="site-page" href="/box/"><i class="fa-fw fas fa-box"></i><span> 导航栏</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">基于局部-全局融合进行多模态联邦学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-12T10:00:00.000Z" title="发表于 2025-03-12 18:00:00">2025-03-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-12T12:53:26.167Z" title="更新于 2025-03-12 20:53:26">2025-03-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BA%E6%96%87/">论文</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="基于局部-全局融合进行多模态联邦学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/post/20.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/post/20.html" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><p><strong>题目：</strong>基于局部-全局融合进行多模态联邦学习</p>
+<p><strong>作者：</strong> Zilin Xia∗,1, Min Tan∗,1, Zhigang Gao+,2,
+Lingqiang Chu1, Tingting Han1</p>
+<p><strong>单位：</strong>
+杭州电子科技大学计算机科学与技术学院（4人）与中国计量大学信息工程学院（1人）合作完成。</p>
+<p><strong>会议：</strong> 2024 IEEE International Conference on
+Systems, Man, and Cybernetics (SMC)</p>
+<p><strong>会议时间地点：</strong>October 6-10, 2024. Sarawak,
+Malaysia</p>
+<h2 id="摘要">摘要</h2>
+<p>物联网（IoT）设备在现代生活的各个领域广泛分布，成为收集和分析多模态数据的重要来源。然而，与IoT设备相关的数据所有权和隐私问题使得多设备间的数据共享变得不切实际。近年来，<strong>多模态联邦学习（MFL）​</strong>​
+作为一种创新解决方案应运而生，使得每个设备客户端能够在无需交换本地数据的情况下，协作训练出性能良好的本地模型。然而，现有的大多数多模态联邦学习方法优先训练强大的全局服务器模型，却忽视了本地客户端模型的性能。本文提出
+​<strong>FedAF</strong>，一种基于对抗表征学习的多模态联邦学习方法，通过特征融合增强本地<strong>特征</strong>能力，从而优化本地客户端模型。<strong>具体而言，FedAF利用训练好的全局模型，将每个本地客户端数据的全局特征与其本地模型生成的局部特征进行融合</strong>。此外，通过<strong>领域对抗学习</strong>对齐全局与局部<strong>特征</strong>，最小化本地与全局编码器之间的差异，迫使全局编码器适配本地任务。在两类单模态分类数据集和一个多模态检索数据集上的实验表明，FedAF相较于其他联邦学习方法实现了最先进的性能，显著提升了本地客户端模型的性能，同时保持了全局服务器模型的良好表现。</p>
+<h3 id="关键点总结"><strong>关键点总结</strong></h3>
+<ol type="1">
+<li><p>​<strong>问题</strong>：现有MFL方法忽视本地模型性能，过度依赖全局模型。</p></li>
+<li><p>​<strong>方法</strong>：</p>
+<ul>
+<li><p>​<strong>特征融合</strong>：结合本地特征与全局特征（通过公共数据集生成）。</p></li>
+<li><p>​<strong>对抗对齐</strong>：利用梯度反转层（GRL）和判别器对齐特征空间。</p></li>
+</ul></li>
+<li><p>​<strong>效果</strong>：</p>
+<ul>
+<li><p>本地模型性能显著提升（如CIFAR-100分类精度提升至64%）。</p></li>
+<li><p>全局模型性能保持稳定（如跨模态检索任务中rsum@R1达57.53）。</p></li>
+</ul></li>
+</ol>
+<h2 id="介绍">1. 介绍</h2>
+<p>物联网设备的发展并且促进了多模态的研究，因为对数据隐私和安全性的需求，引入了多模态联邦学习（MFL），客户端在本地训练模型，只向服务器传输模型更新或参数，从而保护原始数据的隐私。</p>
+<p>物联网有丰富的数据源，但在数据隐私和安全方面却面临着巨大的挑战。</p>
+<p>在本文中，我们提出了
+FedAF，这是一种通过与对抗性表示学习特征融合的多模态联邦学习方法。<strong>我们的贡献总结如下</strong>：i)
+FedAF
+通过局部全局特征融合创造性地解决了异构多模态场景带来的挑战，利用训练有素的全局编码器显着增强局部特征；
+ii)
+我们引入了一种自适应特征对齐机制来增强全局特征和局部编码器训练之间的协同作用；iii)
+采用域对抗鉴别器的结合来减轻服务器和本地客户端之间的异质性。</p>
+<h2 id="相关工作">2. 相关工作</h2>
+<figure>
+<img
+src="https://s1.vika.cn/space/2025/03/12/6e475a8f2e0a4f9da500092c14830986"
+alt="4efb4310100755537226340d0c039b8b_1_Figure_1_1601406915.png" />
+<figcaption
+aria-hidden="true">4efb4310100755537226340d0c039b8b_1_Figure_1_1601406915.png</figcaption>
+</figure>
+<p>FedAF 的总体操作程序。(a) 提出的 FedAF
+模型的框架。(b)服务器从全局-局部聚合的聚合表示中提取知识。这些表示由公共数据集上的服务器和客户端编码器生成。(c)
+客户端通过服务器和客户端编码器在本地数据集中生成全局和局部表示，并使用
+MF 模块生成的组合表示更新它们。</p>
+<h3 id="描述">描述：</h3>
+<p>MF module：将本地特征和全局特征融合
+Discriminator：鉴别器：区分特征来源（本地或全局），如果发现这个结果与全局知识不符
+，就会触发MF模块重新调整特征比例</p>
+<p>Predictor：预测器，预测匹配度
+Evaluator：量化融合特征的质量，指导模型动态调整权重β</p>
+<p>整体框架分为了三个部分，分别是FedAF模型的框架，服务器从聚合特征中提取知识，客户端通过融合本地与全局特征更新模型</p>
+<p>（图a）先看这个FedAF模型，<strong>单模态客户端</strong>​（图像/文本）分别使用使用本地编码器生成<strong>局部特征，</strong>MF模块<strong>融合</strong>本地特征和服务器下发的全局知识（Global
+Rep.）<strong>，</strong>经过预测器，上传给服务器<strong>，鉴别器如果</strong>发现<strong>融合后后的</strong>结果与全局知识不符，就会触发MF模块重新调整特征比例<strong>，多模态客户端</strong>​（MM
+client）：同时处理图像和文本，生成多模态联合特征，多了一个评估器，量化融合特征的质量。服务器聚合所有客户端的局部特征，生成<strong>全局特征，</strong>并通过公共数据集（Server
+Data）训练全局模型（Server
+Model），并分发<strong>全局特征</strong>至客户端。​</p>
+<p>（图b）接收来自客户端的本地特征（Local Rep.）与全局特征（Global
+Rep.），将他们进行聚合得到聚合特征，服务器从聚合特征中蒸馏提取知识。</p>
+<p>（图c）客户端将<strong>本地特征</strong>​（Local
+Rep.）与<strong>全局特征</strong>​（Global
+Rep.）通过<strong>MF映射模块</strong>​（MF
+mapping）融合，生成<strong>联合特征</strong>​（Combined Rep.）。</p>
+<p>假设你上传了一张「冲浪家庭照」和文字“海边假日”：</p>
+<ol type="1">
+<li><p>图片/文本编码器分别生成特征（Local Rep.）</p></li>
+<li><p>MF模块混合本地特征和服务器下发的全局知识（Global Rep.）</p></li>
+<li><p>​<strong>Predictor登场</strong>：用混合后的特征判断图文是否匹配，并输出「匹配度85%」</p></li>
+<li><p>如果Discriminator发现这个结果与全局知识不符（比如服务器知道“假日”常关联“沙滩椅”而非“冲浪”），就会触发MF模块重新调整特征比例</p></li>
+</ol>
+<h3 id="多模态特征融合">多模态特征融合</h3>
+<p>在客户端异构模型的多模态学习领域，全局和局部特征的融合和对齐构成了核心和具有挑战性的任务，特别是在处理来自分散数据源的复杂信息时。例如，通过发现和最大化不同特征集之间的相关性，典型相关分析
+(CCA) [9] 为不同视图之间的特征对齐提供了一种有效的途径。图神经网络 (GNN)
+[10]
+可以精确地捕获实体之间的复杂依赖关系，从而实现不同模态的特征的有效融合。构建深度网络[11]捕获复杂的非线性关系，建立特征之间的共享空间表示，从而促进深度融合特征的提取。然而，这些只代表了多模态联邦学习中的一小部分挑战，仍然需要进一步的研究和探索来解决数据隐私和安全性等问题。</p>
+<h3 id="对抗性学习">对抗性学习</h3>
+<p>对抗性学习旨在利用对抗机制充分利用来自不同模态数据的互补信息。最经典的例子是Goodfellow等人2014年提出的生成对抗网络(GANs)[12]，<strong>主要由两个神经网络组成:生成器和鉴别器。对抗性学习中生成器的目标是通过生成与真实训练数据无法准确区分的样本来欺骗鉴别器。</strong>另一方面，<strong>鉴别器的目标是准确确定样本的来源，区分生成器生成的样本和真实数据。</strong>这两个网络在训练过程中相互竞争，从而促进彼此的改进。这种方法旨在提高学习模型的性能和泛化能力，从而使它们对各种任务和数据集更加健壮和适应性。</p>
+<h2 id="fedaf">3. FedAF</h2>
+<p>该方法集成了特征融合和对抗对齐学习来增强局部表示。这种方法是专门为具有不同模式和异构任务模型的本地客户端设计的。</p>
+<h3 id="特征对齐">特征对齐</h3>
+<p>中提出的局部全局特征融合方法旨在利用服务器模型在局部模型训练过程中提供的见解。因此，我们引入了一种新的特征融合方法，该方法集成了客户端和服务器端的知识。这种方法涉及使用客户端编码器和服务器编码器对本地数据进行编码，从而产生捕获数据固有特征的局部特征表示，以及富含多模态信息的特征表示。此外，本地和服务器模型的不同角色加剧了局部和全局表示之间特征空间的差异。为了缓解这一挑战，我们引入了一个自适应模块
+M(·)，专门用于最小化局部和全局特征表示之间的差异。</p>
+<p>这种自适应模块有助于更好地融合全局和局部特征，使它们能够在同一特征空间中和谐交互。</p>
+<h3 id="特征融合">特征融合</h3>
+<p>对于单峰客户端，局部模型仅在单一模态上进行训练，从而产生可能缺乏鲁棒性的特征。相反，在多模态本地客户端的情况下，本地模型和服务器模型表现出不同的架构，并在不同的数据集上进行训练，导致它们有效提取多模态信息的能力的变化。通过联合利用局部和全局特征，客户端不仅可以捕获局部特定信息，还可以整合全局特征的多模态见解。</p>
+<h3 id="对抗性对齐">对抗性对齐</h3>
+<p>我们利用对抗性学习来训练客户端鉴别器以提高本地编码器的性能。通过最大化鉴别器损失，我们强制局部特征编码器φc(·)和自适应模块Mc(·)产生更兼容的特征表示，可以融合内在特征和丰富的多模态信息[13]。具体来说，我们在鉴别器网络
+D(·) 之前构建了一个梯度反转层 (GRL)，以有效地训练 φc(·) 和 Gc(·)。GRL
+在反向传播中反转梯度，确保局部特征编码器以与最小化鉴别器损失相反的方向更新。受
+[14]
+的启发，我们将梯度反转层形式化为“伪函数”。R(·)由两个不相容的方程定义，</p>
+<figure>
+<img
+src="https://s1.vika.cn/space/2025/03/12/3fbba781774440a2bf205e4b6a0e40ef"
+alt="image.png" />
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>FedAF 是一个
+​<strong>多模态联邦学习框架</strong>，旨在解决异构客户端（不同模态、任务）的本地模型训练与全局知识共享的冲突问题，核心是通过
+​<strong>特征融合</strong>​ 和 ​<strong>对抗对齐</strong>​
+提升本地模型性能，同时利用服务器端知识蒸馏优化全局模型。</p>
+<hr />
+<h3 id="输入与输出"><strong>输入与输出</strong></h3>
+<p>• <strong>输入</strong>： •
+<strong>数据</strong>：公共数据集（P）、服务器数据集（Ⅰ）、客户端数据集（Ic）。
+• <strong>模型组件</strong>： ◦ 服务器编码器（Φs） ◦ 客户端编码器（Φc）
+◦ 自适应模块（M） ◦ 判别器（D） •
+<strong>超参数</strong>：通信轮数（T）、本地训练轮数（E）。</p>
+<p>•
+<strong>输出</strong>：经过联邦优化后的最佳客户端模型（w_c^T）。</p>
+<hr />
+<h3 id="算法流程"><strong>算法流程</strong></h3>
+<h4 id="客户端本地训练clientupdate"><strong>1.
+客户端本地训练（ClientUpdate）</strong></h4>
+<p>• <strong>步骤</strong>：每个客户端在每轮通信（t）中执行以下操作： •
+<strong>特征融合（第3行）</strong>： 使用公式6的线性加权方法，将
+<strong>本地特征（Φc）</strong> 与 <strong>全局特征（Φs）</strong>
+融合，生成增强后的特征表示： $f_{} = _c + (1-) M(_s) $（其中 β
+控制融合权重，M 是自适应对齐模块）</p>
+<p>• <strong>模型更新（第4行）</strong>：
+通过本地数据（Ic）的损失函数（如分类或检索损失），更新客户端模型参数：
+<span class="math inline">\(w^{(t,i+1)} \leftarrow w^{(t,i)} - \eta
+\cdot \nabla \mathcal{L}_{\text{local}}\)</span></p>
+<p>• <strong>对抗训练（第5行）</strong>： 使用判别器 D
+和梯度反转层（GRL），最小化全局与本地特征的分布差异（公式4）： <span
+class="math inline">\(\min_{\Phi_c} \max_D \mathbb{E}[\log D(\Phi_s)] +
+\mathbb{E}[\log (1-D(\Phi_c))]\)</span></p>
+<ul>
+<li><strong>公共数据集
+P在本地客户端模型中通过客户端编码器获得本地的图像特征和文本特征（第6行）</strong></li>
+</ul>
+<p>• <strong>返回结果（第7行）</strong>：
+将本地训练后的模型参数（w<sup>{t,E}）和特征表示（I_c</sup>T）传回服务器。</p>
+<hr />
+<h4 id="服务器端全局优化server-executes"><strong>2.
+服务器端全局优化（Server Executes）</strong></h4>
+<p>• <strong>步骤</strong>：服务器在每轮通信（t）中执行以下操作： •
+<strong>聚合客户端参数（第10行）</strong>：
+根据客户端上传的模型参数，更新全局模型： <span
+class="math inline">\(w^{t+1} \leftarrow w^t - \eta \cdot \nabla
+\mathcal{L}_{\text{global}}\)</span></p>
+<p>• <strong>分发全局编码器（第11行）</strong>： 将服务器编码器 Φs
+发送给所有客户端，用于下一轮特征融合。</p>
+<ul>
+<li><p><strong>服务器接收客户端的特征表示和模型参数（第12行）</strong></p></li>
+<li><p><strong>利用公共数据集
+P，在全局模型通过编码器获得全局图像特征和全局文本特征（第13行）</strong></p></li>
+</ul>
+<p>• <strong>知识蒸馏（14行）</strong>：
+将本地特征与全局特征融合后进行通过蒸馏提取知识，并更新全局模型。
+$w^{t+1} (I_c^T, I^T) $（其中 <span class="math inline">\(I^T\)</span>
+是服务器从 P 中提取的特征表示）<span
+class="math inline">\(I_c\)</span>是客户端图像特征</p>
+<hr />
+<h2 id="实验">4. 实验</h2>
+<p>论文中的实验使用了以下数据集：</p>
+<ol type="1">
+<li><p><strong>CIFAR-100</strong> •
+<strong>用途</strong>：构建单模态图像客户端（分类任务） •
+<strong>特点</strong>：包含100个类别的图像数据，用于模拟图像分类客户端。
+• <strong>划分</strong>：均匀划分为多个客户端本地数据集。</p></li>
+<li><p><strong>AGNEWS</strong> •
+<strong>用途</strong>：构建单模态文本客户端（分类任务） •
+<strong>特点</strong>：新闻文本分类数据集，包含4个类别，用于模拟文本分类客户端。
+• <strong>划分</strong>：均匀划分为多个客户端本地数据集。</p></li>
+<li><p><strong>Flickr30k</strong> •
+<strong>用途</strong>：构建多模态客户端（跨模态检索任务） •
+<strong>特点</strong>：包含图像-文本对，用于模拟多模态客户端的跨模态检索任务。
+•
+<strong>子集</strong>：随机选择2,000对图像-文本作为多模态客户端数据。</p></li>
+<li><p><strong>MSCOCO</strong> •
+<strong>用途</strong>：构建服务器端测试集 •
+<strong>特点</strong>：多模态数据集，包含图像-文本对，用于服务器模型的训练和测试。
+•
+<strong>子集</strong>：随机选择10,000对图像-文本作为服务器端数据。</p></li>
+</ol>
+<hr />
+<h3 id="补充说明">补充说明：</h3>
+<p>• <strong>单模态客户端</strong>： •
+图像客户端使用CIFAR-100，文本客户端使用AGNEWS。 •
+任务分别为图像分类和文本分类。</p>
+<p>• <strong>多模态客户端</strong>： •
+使用Flickr30k的子集，任务为跨模态检索（如“图像到文本”或“文本到图像”检索）。</p>
+<p>• <strong>服务器端</strong>： •
+使用MSCOCO的子集进行知识蒸馏和全局模型训练，测试集包含5,000张图像。</p>
+<hr />
+<p>这些数据集的选择覆盖了单模态分类和多模态检索任务，符合论文中异构客户端（图像、文本、多模态）的联邦学习场景需求。</p>
+<p><strong>调整特征融合的参数实验：</strong></p>
+<figure>
+<img
+src="https://s1.vika.cn/space/2025/03/12/f7e0bb56988949e9846d50d3dd2a4fb6"
+alt="4efb4310100755537226340d0c039b8b_4_Table_I_1411040368.png" />
+<figcaption
+aria-hidden="true">4efb4310100755537226340d0c039b8b_4_Table_I_1411040368.png</figcaption>
+</figure>
+<h3 id="消融实验">消融实验</h3>
+<p>在论文中，作者提到了三个主要组件：特征融合（FedF）、特征对齐（FedMF）和对抗对齐（FedAF）。他们逐步将这些组件添加到基础联邦学习方法（Fed）上，观察性能变化。具体来说，消融实验分为以下几个步骤：</p>
+<ol type="1">
+<li><p><strong>Fed</strong>：基础联邦学习方法，没有添加任何提出的组件。</p></li>
+<li><p><strong>FedF</strong>：在Fed基础上加入特征融合模块。</p></li>
+<li><p><strong>FedMF</strong>：在FedF基础上加入特征对齐模块。</p></li>
+<li><p><strong>FedAF</strong>：在FedMF基础上加入对抗对齐模块。</p></li>
+</ol>
+<p>每个步骤都测试了不同客户端的性能指标，比如分类准确率和检索效果。通过比较这些步骤的结果，可以确定每个组件对模型性能的贡献。</p>
+<p>用户可能想知道这些组件具体是如何工作的，以及为什么需要进行这样的测试。此外，用户可能希望了解消融实验的结果如何支持论文的结论，即FedAF的有效性。</p>
+<p>需要注意的是，用户可能对消融实验不太熟悉，所以需要以简明的方式解释，同时结合论文中的具体例子。还要确保回答结构清晰，分点说明每个实验步骤和结果。</p>
+<p>最后，需要确认引用的表格数据是否正确，比如表II中的结果，确保回答的准确性。可能还需要提到消融实验的结果显示，每个组件的加入都带来了性能提升，从而验证了它们的必要性。</p>
+<p>论文中的消融实验（Ablation
+Studies）旨在验证提出的核心组件对模型性能的贡献，通过逐步移除或添加不同模块，分析各部分对整体效果的影响。以下是具体内容：</p>
+<hr />
+<p><strong>消融实验设计</strong></p>
+<p>作者通过逐步集成以下三个核心模块，验证其对性能的提升作用：</p>
+<ol type="1">
+<li><p><strong>特征融合（FedF）</strong> •
+<strong>功能</strong>：将全局特征（来自服务器模型）与本地特征（来自客户端模型）通过线性加权融合（公式6）。
+•
+<strong>作用</strong>：增强本地特征的鲁棒性，引入全局多模态信息。</p></li>
+<li><p><strong>特征对齐（FedMF）</strong> •
+<strong>功能</strong>：通过自适应模块（公式5）对齐全局和本地特征空间，减少二者差异。
+• <strong>作用</strong>：解决特征空间不匹配问题，提升融合效果。</p></li>
+<li><p><strong>对抗对齐（FedAF）</strong> •
+<strong>功能</strong>：引入梯度反转层（GRL）和判别器（公式4），通过对抗训练迫使本地特征与全局特征对齐。
+• <strong>作用</strong>：进一步缩小全局与本地特征的分布差异。</p></li>
+</ol>
+<hr />
+<p><strong>实验设置</strong></p>
+<p>•
+<strong>基线方法</strong>：基础联邦学习方法（Fed），仅使用本地数据训练客户端模型。
+• <strong>逐步添加模块</strong>： • <strong>FedF</strong> = Fed +
+特征融合 • <strong>FedMF</strong> = FedF + 特征对齐 •
+<strong>FedAF</strong> = FedMF + 对抗对齐</p>
+<p>• <strong>评估指标</strong>： •
+<strong>单模态客户端</strong>：分类准确率（prec@1）。 •
+<strong>多模态客户端</strong>：跨模态检索性能（rsum@R1）。 •
+<strong>服务器模型</strong>：在MSCOCO数据集上的检索性能（rsum@R1）。</p>
+<hr />
+<p><strong>关键结果（见表II）</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>CIFAR-100 (prec@1)</th>
+<th>AGNEWS (prec@1)</th>
+<th>Flickr30k (rsum@R1)</th>
+<th>平均性能</th>
+<th>服务器性能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fed</td>
+<td>63.41%</td>
+<td>87.58%</td>
+<td>58.48%</td>
+<td>68.69%</td>
+<td>55.20%</td>
+</tr>
+<tr class="even">
+<td>FedF</td>
+<td>62.01%</td>
+<td>89.10%</td>
+<td>71.43%</td>
+<td>73.91%</td>
+<td>56.30%</td>
+</tr>
+<tr class="odd">
+<td>FedMF</td>
+<td>63.91%</td>
+<td>89.86%</td>
+<td>71.15%</td>
+<td>74.59%</td>
+<td>57.56%</td>
+</tr>
+<tr class="even">
+<td>FedAF</td>
+<td><strong>64.00%</strong></td>
+<td><strong>89.81%</strong></td>
+<td><strong>75.06%</strong></td>
+<td><strong>76.17%</strong></td>
+<td><strong>57.53%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<figure>
+<img
+src="https://s1.vika.cn/space/2025/03/12/8dcc46cfbe5e49b3971e64d261d727ba"
+alt="image.png" />
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p><strong>结论</strong></p>
+<ol type="1">
+<li><p><strong>特征融合（FedF）</strong>： •
+显著提升多模态客户端性能（rsum@R1从58.48%→71.43%），但对单模态图像客户端效果有限（因特征空间未对齐）。</p></li>
+<li><p><strong>特征对齐（FedMF）</strong>： •
+解决特征空间不匹配问题，单模态客户端性能显著提升（CIFAR-100从62.01%→63.91%）。</p></li>
+<li><p><strong>对抗对齐（FedAF）</strong>： •
+进一步优化特征分布对齐，多模态客户端性能提升至75.06%，同时保持服务器模型性能稳定。</p></li>
+</ol>
+<hr />
+<p><strong>消融实验的意义</strong></p>
+<p>通过逐步验证各模块的贡献，论文证明了：</p>
+<ol type="1">
+<li><p><strong>特征融合</strong>是提升多模态任务性能的关键。</p></li>
+<li><p><strong>特征对齐</strong>和<strong>对抗学习</strong>是解决异构客户端特征差异的必要手段。</p></li>
+<li><p>最终模型（FedAF）在本地客户端和服务器端均达到最优平衡。</p></li>
+</ol>
+<p><strong>与其他联邦多模态算法的比较，所有算法的总体性能。</strong></p>
+<figure>
+<img
+src="https://s1.vika.cn/space/2025/03/12/8ff498921e5243b0b8bbebc571f7184b"
+alt="image.png" />
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<h2 id="结论">5. 结论</h2>
+<p>在本文中，我们提出了一种名为 FedAF
+的多模式联合学习算法，以应对在任务差异显著的多模式联合学习场景中提高异构客户端性能的挑战。
+FedAF 旨在生成结合局部和全局特征的表征，以增强模型的整体鲁棒性和信息量。
+它结合了一个自适应模块和一个领域对抗学习框架，以有效地调整特征。
+具体来说，特征生成器将服务器编码器与自适应模块相结合，并与客户端判别器一起进行训练，以实现可靠的特征对齐。
+我们在三个公共数据集上进行了全面评估，证明 FedAF
+可以有效提高异构客户端在各自本地任务中的性能。</p>
+<h3 id="优点advantages"><strong>优点（Advantages）</strong></h3>
+<ol type="1">
+<li><p><strong>提升本地客户端模型性能</strong> •
+<strong>核心贡献</strong>：通过
+<strong>局部-全局特征融合</strong>（公式6）和
+<strong>对抗对齐</strong>（公式4），FedAF
+显著提升了异构客户端（单模态分类+多模态检索）的本地任务性能。 •
+<strong>实验证据</strong>：在消融实验中（表II），FedAF
+的本地客户端平均性能（76.17%）远超基准方法 Fed（68.69%）和
+LOCAL（68.85%）。</p></li>
+<li><p><strong>解决异构模态与任务的冲突</strong> •
+<strong>特征对齐模块</strong>（公式5）：通过自适应模块 <span
+class="math inline">\(\mathcal{M}(\cdot)\)</span>
+对齐全局（服务器）与本地（客户端）特征空间，缓解了不同模态和任务间的分布差异。
+•
+<strong>对抗训练</strong>：引入梯度反转层（GRL）迫使本地特征分布逼近全局特征，增强模型对异构数据的适应能力。</p></li>
+<li><p><strong>保护数据隐私</strong> •
+<strong>联邦学习框架</strong>：客户端仅共享模型参数或特征表示，原始数据保留在本地，符合隐私保护需求（如
+GDPR）。</p></li>
+<li><p><strong>全局模型性能稳定</strong> •
+<strong>服务器端蒸馏</strong>：通过公共数据集（MSCOCO）的知识蒸馏，FedAF
+在提升本地模型的同时，保持了服务器模型的性能（表III中 Server
+rsum@R1=57.53% vs. CreamFL 57.06%）。</p></li>
+</ol>
+<hr />
+<h3 id="缺点limitations"><strong>缺点（Limitations）</strong></h3>
+<ol type="1">
+<li><p><strong>依赖公共数据集</strong> •
+<strong>服务器端训练</strong>：需要公共多模态数据集（如
+MSCOCO）进行知识蒸馏，若公共数据与本地数据分布差异大，可能影响全局模型效果。</p></li>
+<li><p><strong>计算与通信开销较高</strong> •
+<strong>对抗训练复杂度</strong>：客户端需同时训练本地模型、自适应模块和判别器，增加了本地计算负担。
+•
+<strong>多轮通信</strong>：联邦学习框架需要多轮参数交换（20轮通信），可能影响实时性。</p></li>
+<li><p><strong>参数敏感性</strong> •
+<strong>融合权重β</strong>（公式6）：实验表明（表I），β的取值对性能影响显著（如β=0.6时最优），需通过调参确定，增加了部署成本。</p></li>
+<li><p><strong>对异构模态的泛化性有限</strong> •
+<strong>实验场景局限</strong>：论文仅验证了图像、文本和跨模态检索任务，未涉及更复杂的模态（如音频、视频）或动态时序数据。</p></li>
+</ol>
+<hr />
+<h3 id="总结"><strong>总结</strong></h3>
+<p>• <strong>适用场景</strong>：FedAF 在
+<strong>异构多模态联邦学习</strong>
+场景下表现突出，尤其适合需要同时优化本地任务和全局模型的隐私敏感应用（如医疗、智能家居）。
+•
+<strong>改进方向</strong>：未来可探索轻量化对抗训练、自适应β调整策略，以及更广泛的模态支持。</p>
+<p>就像全班同学各自在家复习考试，每个人记自己的笔记，老师把大家的笔记精华整理成一份“终极重点”，再发给大家参考——既不用抄作业，又能一起进步！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">流火七月</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/20.html">http://example.com/post/20.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">流火七月</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">多模态</a></div><div class="post_share"><div class="social-share" data-image="https://s1.vika.cn/space/2025/03/12/6e475a8f2e0a4f9da500092c14830986" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/19.html"><img class="next-cover" src="https://img-blog.csdnimg.cn/img_convert/bbf3453dfc913c7c9d9ca3c80584c814.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">多模态学习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/19.html" title="多模态学习"><img class="cover" src="https://img-blog.csdnimg.cn/img_convert/bbf3453dfc913c7c9d9ca3c80584c814.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-23</div><div class="title">多模态学习</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/./img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">流火七月</div><div class="author-info__description">流火七月的博客，欢迎访问</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hy187"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="xpand" style="height:200px;"><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas></div><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople1.js"></script><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/zdog.dist.js"></script><script id="rendered-js" src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople.js"></script><style>.card-widget.card-announcement {
+margin: 0;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+canvas {
+display: block;
+margin: 0 auto;
+cursor: move;
+}
+</style><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog,网站会进行不定期更新,如果你有更好的建议可以联系我</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.</span> <span class="toc-text">关键点总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">1. 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">2. 相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">描述：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E6%80%81%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88"><span class="toc-number">3.2.</span> <span class="toc-text">多模态特征融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%8A%97%E6%80%A7%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.3.</span> <span class="toc-text">对抗性学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fedaf"><span class="toc-number">4.</span> <span class="toc-text">3. FedAF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%AF%B9%E9%BD%90"><span class="toc-number">4.1.</span> <span class="toc-text">特征对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88"><span class="toc-number">4.2.</span> <span class="toc-text">特征融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%8A%97%E6%80%A7%E5%AF%B9%E9%BD%90"><span class="toc-number">4.3.</span> <span class="toc-text">对抗性对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="toc-number">4.4.</span> <span class="toc-text">输入与输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-number">4.5.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%AC%E5%9C%B0%E8%AE%AD%E7%BB%83clientupdate"><span class="toc-number">4.5.1.</span> <span class="toc-text">1.
+客户端本地训练（ClientUpdate）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%85%A8%E5%B1%80%E4%BC%98%E5%8C%96server-executes"><span class="toc-number">4.5.2.</span> <span class="toc-text">2.
+服务器端全局优化（Server Executes）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">5.</span> <span class="toc-text">4. 实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-number">5.1.</span> <span class="toc-text">补充说明：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-number">5.2.</span> <span class="toc-text">消融实验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">6.</span> <span class="toc-text">5. 结论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9advantages"><span class="toc-number">6.1.</span> <span class="toc-text">优点（Advantages）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9limitations"><span class="toc-number">6.2.</span> <span class="toc-text">缺点（Limitations）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/20.html" title="基于局部-全局融合进行多模态联邦学习"><img src="https://s1.vika.cn/space/2025/03/12/6e475a8f2e0a4f9da500092c14830986" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于局部-全局融合进行多模态联邦学习"/></a><div class="content"><a class="title" href="/post/20.html" title="基于局部-全局融合进行多模态联邦学习">基于局部-全局融合进行多模态联邦学习</a><time datetime="2025-03-12T10:00:00.000Z" title="发表于 2025-03-12 18:00:00">2025-03-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/19.html" title="多模态学习"><img src="https://img-blog.csdnimg.cn/img_convert/bbf3453dfc913c7c9d9ca3c80584c814.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="多模态学习"/></a><div class="content"><a class="title" href="/post/19.html" title="多模态学习">多模态学习</a><time datetime="2025-02-23T10:00:00.000Z" title="发表于 2025-02-23 18:00:00">2025-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/18.html" title="SCAFFOLD-联邦学习的随机控制平均"><img src="https://s1.vika.cn/space/2025/01/03/2e9f859be2a64b499110c460c2697d4f" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SCAFFOLD-联邦学习的随机控制平均"/></a><div class="content"><a class="title" href="/post/18.html" title="SCAFFOLD-联邦学习的随机控制平均">SCAFFOLD-联邦学习的随机控制平均</a><time datetime="2025-01-01T10:00:00.000Z" title="发表于 2025-01-01 18:00:00">2025-01-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/17.html" title="个人博客重启篇-联邦学习基础知识"><img src="https://s1.vika.cn/space/2024/12/05/155d115a892a49fb953acfd01b6309c0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="个人博客重启篇-联邦学习基础知识"/></a><div class="content"><a class="title" href="/post/17.html" title="个人博客重启篇-联邦学习基础知识">个人博客重启篇-联邦学习基础知识</a><time datetime="2024-12-05T10:00:00.000Z" title="发表于 2024-12-05 18:00:00">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/16.html" title="FedAvg-联邦学习开山之作"><img src="https://s1.vika.cn/space/2024/11/30/837055b093c84c1f9d13ef34e287f206" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="FedAvg-联邦学习开山之作"/></a><div class="content"><a class="title" href="/post/16.html" title="FedAvg-联邦学习开山之作">FedAvg-联邦学习开山之作</a><time datetime="2024-11-30T10:00:00.000Z" title="发表于 2024-11-30 18:00:00">2024-11-30</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgba(255,255,255,0);"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 流火七月</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'hba8X9y2MK7XNgHBmVz69zuq-gzGzoHsz',
+      appKey: 'yVxdgiLk2d9eRfzHucJBAYmk',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><div class="aplayer no-destroy" data-id="3068013756" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-mini="true"> </div><script async src="/js/weather.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function history_calendar_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-history"><div class="card-content"><div class="item-headline"><i class="fas fa-clock fa-spin"></i><span>那年今日</span></div><div id="history-baidu" style="height: 100px;overflow: hidden"><div class="history_swiper-container" id="history-container" style="width: 100%;height: 100%"><div class="swiper-wrapper" id="history_container_wrapper" style="height:20px"></div></div></div></div>';
+                console.log('已挂载history_calendar')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            history_calendar_injector_config()
+        } </script><script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/js/main.js"></script><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/15.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://img-blog.csdnimg.cn/wm/3f130b2465cd465cfabbb476c1cffa7a.jpg?x-oss-process=image/resize,h_236,w_382" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-27</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/15.html&quot;);" href="javascript:void(0);" alt="">杨强-联邦学习综述</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/15.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/14.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://s1.vika.cn/space/2024/11/13/8bd734b2897447c880c37513b09437b0" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-13</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/14.html&quot;);" href="javascript:void(0);" alt="">解决hexo引入图床，手机和web不显示图片的问题</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/14.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/13.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://img-blog.csdnimg.cn/img_convert/4824b7416506c51cc9c011c6d5855255.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-12-01</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/13.html&quot;);" href="javascript:void(0);" alt="">C语言编程题</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/13.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/12.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://pic.rmb.bdstatic.com/bjh/down/f5fe92bec66876161185d5b7845381c7.gif" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-30</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/12.html&quot;);" href="javascript:void(0);" alt="">新年快乐！</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/12.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/11.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://img2.baidu.com/it/u=88990485,655298213&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=888&amp;h=500" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-22</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/11.html&quot;);" href="javascript:void(0);" alt="">ChatGPT新一代人工智能</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/11.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/10.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://s1.vika.cn/space/2022/12/14/251d1395ce6c4b0594a407ddd0eabb1b" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-14</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/10.html&quot;);" href="javascript:void(0);" alt="">Coding pages 不见了？国内各大项目开发管理平台测评</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/10.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/7.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://images4.alphacoders.com/229/229628.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-13</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/7.html&quot;);" href="javascript:void(0);" alt="">圣诞节快到了，教大家用html写一个圣诞树吧</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/7.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
